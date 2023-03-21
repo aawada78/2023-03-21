@@ -1,0 +1,17 @@
+<h1>Booking History</h1>
+
+<app-tabbed-pane #pane>
+    <app-tab title="Upcoming Flights">
+        <p>No upcoming flights!</p>
+    </app-tab>
+
+    <app-tab title="Operated Flights">
+        <p>No operated flights!</p>
+    </app-tab>
+
+    <app-tab title="Canceled Flights">
+        <p>No canceled flights!</p>
+    </app-tab>
+</app-tabbed-pane>
+
+<p>Current page: {{ pane.currentPage }}</p>
