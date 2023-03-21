@@ -2,7 +2,7 @@
 
 import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { Observable } from 'rxjs';
+import { BehaviorSubject, Observable } from 'rxjs';
 import { Flight } from './flight';
 
 @Injectable({
@@ -12,12 +12,17 @@ export class FlightService {
   // We will refactor this to an observable in a later exercise!
   flights: Flight[] = [];
 
+  private flightsSubject$ = new BehaviorSubject<Flight[]>([]);
+  // eslint-disable-next-line @typescript-eslint/member-ordering
+  readonly flights$ = this.flightsSubject$.asObservable();
+
   constructor(private http: HttpClient) {}
 
   load(from: string, to: string): void {
     this.find(from, to).subscribe({
       next: (flights) => {
         this.flights = flights;
+        this.flightsSubject$.next(flights);
       },
       error: (err) => {
         console.error('error', err);
@@ -36,8 +41,15 @@ export class FlightService {
   }
 
   delay(): void {
-    const date = new Date(this.flights[0].date);
-    date.setTime(date.getTime() + 1000 * 60 * 15);
-    this.flights[0].date = date.toISOString();
+    const delayedDate = new Date(this.flights[0].date);
+    delayedDate.setTime(delayedDate.getTime() + 1000 * 60 * 15);
+    // this.flights[0].date = date.toISOString();
+
+    const oldFlight = this.flights[0];
+
+    const newFlight = { ...oldFlight, date: delayedDate.toISOString() };
+
+    this.flights = this.flights.map((flight) => (flight.id === newFlight.id ? newFlight : flight));
+    this.flightsSubject$.next(this.flights);
   }
 }

@@ -20,12 +20,14 @@ export class FlightSearchComponent {
     5: true
   };
 
+  flights$ = this.flightService.flights$;
+
   constructor(private flightService: FlightService) {}
 
-  get flights() {
-    // We will refactor this to an observable in a later exercise!
-    return this.flightService.flights;
-  }
+  // get flights() {
+  //   // We will refactor this to an observable in a later exercise!
+  //   return this.flightService.flights;
+  // }
 
   search(): void {
     this.flightService.load(this.from, this.to);
