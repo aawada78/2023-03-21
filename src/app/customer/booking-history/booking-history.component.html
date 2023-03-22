@@ -14,4 +14,19 @@
     </app-tab>
 </app-tabbed-pane>
 
-<p>Current page: {{ pane.currentPage }}</p>
+<div>
+    <p>Current page: {{ pane.currentPage }}</p>
+    <button (appClickWithWarning)="delete()" [warningMessage]="deleteWarningMessage">Delete</button>
+</div>
+
+<ng-template #tooltiptemplate let-title let-text="helpText" let-link="helpLink" let-linkLabel="helpLinkLabel">
+    <h3>{{ title }}</h3>
+    <div>
+        {{ text }}
+        <a [href]="link">{{ linkLabel }}</a>
+    </div>
+</ng-template>
+
+<div>
+    <input [appTooltip]="tooltiptemplate">
+</div>

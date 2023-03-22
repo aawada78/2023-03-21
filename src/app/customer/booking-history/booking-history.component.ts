@@ -6,10 +6,12 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./booking-history.component.scss']
 })
 export class BookingHistoryComponent implements OnInit {
+  deleteWarningMessage = 'Bist du wirklich sicher?';
+  constructor() {}
 
-  constructor() { }
+  ngOnInit(): void {}
 
-  ngOnInit(): void {
+  delete() {
+    console.log('Delete triggered!!!');
   }
-
 }
