@@ -6,6 +6,7 @@ import { PassengerSearchComponent } from './passenger-search/passenger-search.co
 
 // Diesen Import hinzufügen
 import { FlightEditComponent } from './flight-edit/flight-edit.component';
+import { LookaheadComponent } from './lookahead/lookahead.component';
 
 export const FLIGHT_BOOKING_ROUTES: Routes = [
   {
@@ -24,5 +25,9 @@ export const FLIGHT_BOOKING_ROUTES: Routes = [
   {
     path: 'flight-edit/:id',
     component: FlightEditComponent
+  },
+  {
+    path: 'lookahead',
+    component: LookaheadComponent
   }
 ];

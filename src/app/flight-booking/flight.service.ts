@@ -3,6 +3,7 @@
 import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { BehaviorSubject, Observable } from 'rxjs';
+import { filter, share, shareReplay } from 'rxjs/operators';
 import { Flight } from './flight';
 
 @Injectable({
@@ -19,15 +20,39 @@ export class FlightService {
   constructor(private http: HttpClient) {}
 
   load(from: string, to: string): void {
-    this.find(from, to).subscribe({
+    const find$ = this.find(from, to).pipe(
+      filter((flights) => {
+        console.log('Filter triggered!');
+        return flights.length >= 3;
+      }),
+      shareReplay({ bufferSize: 1, refCount: true })
+    );
+
+    // Subscription #1
+    find$.subscribe({
       next: (flights) => {
         this.flights = flights;
         this.flightsSubject$.next(flights);
+        console.log('Subscription #1', flights);
       },
       error: (err) => {
         console.error('error', err);
       }
     });
+
+    setTimeout(() => {
+      // Subscription #2
+      find$.subscribe({
+        next: (flights) => {
+          // this.flights = flights;
+          // this.flightsSubject$.next(flights);
+          console.log('Subscription #2', flights);
+        },
+        error: (err) => {
+          console.error('error', err);
+        }
+      });
+    }, 2000);
   }
 
   find(from: string, to: string): Observable<Flight[]> {

@@ -17,13 +17,13 @@ export class TabNavigatorComponent implements OnInit {
   constructor(private tabbedPaneService: TabbedPaneService) {}
 
   ngOnInit(): void {
-    this.tabbedPaneService.pageCount.subscribe({
+    this.tabbedPaneService.pageCount$.subscribe({
       next: (pageCount) => {
         this.pageCount = pageCount;
       }
     });
 
-    this.tabbedPaneService.currentPage.subscribe({
+    this.tabbedPaneService.currentPage$.subscribe({
       next: (currentPage) => {
         this.page = currentPage;
       }
@@ -37,7 +37,8 @@ export class TabNavigatorComponent implements OnInit {
 
     this.page--;
     // this.pageChange.emit(this.page);
-    this.tabbedPaneService.currentPage.next(this.page);
+    // this.tabbedPaneService.currentPage.next(this.page);
+    this.tabbedPaneService.updateCurrentPage(this.page);
   }
 
   next() {
@@ -47,6 +48,7 @@ export class TabNavigatorComponent implements OnInit {
 
     this.page++;
     // this.pageChange.emit(this.page);
-    this.tabbedPaneService.currentPage.next(this.page);
+    // this.tabbedPaneService.currentPage.next(this.page);
+    this.tabbedPaneService.updateCurrentPage(this.page);
   }
 }
