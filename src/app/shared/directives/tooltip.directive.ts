@@ -1,4 +1,4 @@
-import { Directive, ElementRef, EmbeddedViewRef, HostListener, Input, OnInit, TemplateRef, ViewContainerRef } from '@angular/core';
+import { Directive, EmbeddedViewRef, HostListener, Input, OnInit, TemplateRef, ViewContainerRef } from '@angular/core';
 
 @Directive({
   selector: 'input[appTooltip]'
@@ -6,6 +6,10 @@ import { Directive, ElementRef, EmbeddedViewRef, HostListener, Input, OnInit, Te
 export class TooltipDirective implements OnInit {
   // eslint-disable-next-line @angular-eslint/no-input-rename
   @Input('appTooltip') template!: TemplateRef<unknown>;
+
+  private viewRef: EmbeddedViewRef<unknown> | undefined;
+
+  constructor(private viewContainer: ViewContainerRef) {}
 
   @HostListener('mouseover')
   handleMouseover() {
@@ -18,12 +22,6 @@ export class TooltipDirective implements OnInit {
       this.setHidden(true);
     }
   }
-
-  // eslint-disable-next-line @typescript-eslint/member-ordering
-  private viewRef: EmbeddedViewRef<unknown> | undefined;
-
-  // eslint-disable-next-line @typescript-eslint/member-ordering
-  constructor(private viewContainer: ViewContainerRef) {}
 
   ngOnInit(): void {
     if (!this.template) {
