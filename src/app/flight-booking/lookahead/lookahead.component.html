@@ -7,13 +7,8 @@
     </div>
 </form>
 <div>
-    <p>Loading: {{ loading }}</p>
+    <p>Loading: {{ loading }} - Online: {{ online }}</p>
 </div>
 <ng-container *ngIf="flights$ | async as flights">
-    <app-data-table [data]="flights">
-        <div *appTableField="let field as 'id'">{{ field }}</div>
-        <div *appTableField="let field as 'from'">{{ field }}</div>
-        <div *appTableField="let field as 'to'">{{ field }}</div>
-        <div *appTableField="let field as 'date'">{{ field | date:'dd.MM.yyyy' }}</div>
-    </app-data-table>
+    <app-flights-data-table [flights]="flights"></app-flights-data-table>
 </ng-container>
