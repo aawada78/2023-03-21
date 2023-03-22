@@ -1,4 +1,4 @@
-import { AfterContentInit, Component, ContentChildren, OnInit, QueryList, ViewChildren } from '@angular/core';
+import { AfterContentInit, AfterViewInit, Component, ContentChildren, QueryList } from '@angular/core';
 import { TabComponent } from '../tab/tab.component';
 import { TabbedPaneService } from './tabbed-pane.service';
 
@@ -8,7 +8,7 @@ import { TabbedPaneService } from './tabbed-pane.service';
   styleUrls: ['./tabbed-pane.component.scss'],
   providers: [TabbedPaneService]
 })
-export class TabbedPaneComponent implements AfterContentInit {
+export class TabbedPaneComponent implements AfterViewInit, AfterContentInit {
   @ContentChildren(TabComponent)
   tabQueryList: QueryList<TabComponent> | undefined;
 
@@ -22,7 +22,7 @@ export class TabbedPaneComponent implements AfterContentInit {
     return this.tabQueryList?.toArray() ?? [];
   }
 
-  ngAfterContentInit(): void {
+  ngAfterViewInit(): void {
     this.tabbedPaneService.pageCount.next(this.tabs.length);
     this.tabbedPaneService.currentPage.subscribe({
       next: (page) => {
@@ -32,6 +32,12 @@ export class TabbedPaneComponent implements AfterContentInit {
         this.pageChange(page);
       }
     });
+  }
+
+  ngAfterContentInit(): void {
+    if (this.tabs.length > 0) {
+      this.activate(this.tabs[0]);
+    }
   }
 
   // register(tab: TabComponent): void {

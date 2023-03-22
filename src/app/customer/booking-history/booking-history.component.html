@@ -2,16 +2,64 @@
 
 <app-tabbed-pane #pane>
     <app-tab title="Upcoming Flights">
-        <p>No upcoming flights!</p>
+        <!-- <p>No upcoming flights!</p> -->
+        <app-data-table [data]="flights">
+            <div *appTableField="let field as 'id'">{{ field }}</div>
+            <div *appTableField="let field as 'from'">{{ field }}</div>
+            <div *appTableField="let field as 'to'">{{ field }}</div>
+            <div *appTableField="let field as 'date'">{{ field | date:'dd.MM.yyyy' }}</div>
+        </app-data-table>
     </app-tab>
 
     <app-tab title="Operated Flights">
-        <p>No operated flights!</p>
+        <!-- <p>No operated flights!</p> -->
+        <app-data-table [data]="flights1">
+            <div *appTableField="let field as 'id'">{{ field }}</div>
+            <div *appTableField="let field as 'from'">{{ field }}</div>
+            <div *appTableField="let field as 'to'">{{ field }}</div>
+            <div *appTableField="let field as 'date'">{{ field | date:'dd.MM.yyyy' }}</div>
+        </app-data-table>
     </app-tab>
 
     <app-tab title="Canceled Flights">
-        <p>No canceled flights!</p>
+        <!-- <p>No canceled flights!</p> -->
+        <app-data-table [data]="flights2">
+            <div *appTableField="let field as 'id'">{{ field }}</div>
+            <div *appTableField="let field as 'from'">{{ field }}</div>
+            <div *appTableField="let field as 'to'">{{ field }}</div>
+            <div *appTableField="let field as 'date'">{{ field | date:'dd.MM.yyyy' }}</div>
+        </app-data-table>
     </app-tab>
 </app-tabbed-pane>
 
-<p>Current page: {{ pane.currentPage }}</p>
+<div>
+    <button (appClickWithWarning)="delete()" [warningMessage]="deleteWarningMessage">Delete</button>
+</div>
+
+<ng-template #tooltiptemplate let-title let-text="helpText" let-link="helpLink" let-linkLabel="helpLinkLabel">
+    <h3>{{ title }}</h3>
+    <div>
+        {{ text }}
+        <a [href]="link">{{ linkLabel }}</a>
+    </div>
+</ng-template>
+
+<ng-template #tooltiptemplateStatic>
+    <h3>Tooltip</h3>
+    <div>
+        My Helptext!
+    </div>
+</ng-template>
+<div>
+    <input [appTooltip]="tooltiptemplate">
+</div>
+
+<div>
+    <ng-container *ngTemplateOutlet="tooltiptemplateStatic"></ng-container>
+    <ng-container *ngTemplateOutlet="tooltiptemplate; context: myContext"></ng-container>
+</div>
+
+<div>
+    <h2>Outlet of my new Component</h2>
+    <div *ngComponentOutlet="outletComponent"></div>
+</div>
