@@ -20,6 +20,17 @@ export const APP_ROUTES: Routes = [
     component: AboutComponent
   },
   {
+    path: 'flight-booking',
+    loadChildren: () => import('./flight-booking/flight-booking.module').then((m) => m.FlightBookingModule),
+    data: {
+      preloading: {
+        preload: true,
+        role: 'user',
+        startDate: 25
+      }
+    }
+  },
+  {
     path: '**',
     component: NotFoundComponent
   }

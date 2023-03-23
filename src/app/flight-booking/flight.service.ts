@@ -1,9 +1,10 @@
 // src/app/default-flight.service.ts
 
 import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
-import { Injectable } from '@angular/core';
+import { inject, Injectable } from '@angular/core';
 import { BehaviorSubject, Observable } from 'rxjs';
 import { filter, share, shareReplay } from 'rxjs/operators';
+import { BASE_URL } from '../app.module';
 import { Flight } from './flight';
 
 @Injectable({
@@ -17,7 +18,10 @@ export class FlightService {
   // eslint-disable-next-line @typescript-eslint/member-ordering
   readonly flights$ = this.flightsSubject$.asObservable();
 
-  constructor(private http: HttpClient) {}
+  private baseUrl = inject(BASE_URL);
+  constructor(private http: HttpClient) {
+    console.log(this.baseUrl);
+  }
 
   load(from: string, to: string): void {
     const find$ = this.find(from, to).pipe(
@@ -37,7 +41,8 @@ export class FlightService {
       },
       error: (err) => {
         console.error('error', err);
-      }
+      },
+      complete: () => console.log('Subscription #1 complete!')
     });
 
     setTimeout(() => {
@@ -50,7 +55,8 @@ export class FlightService {
         },
         error: (err) => {
           console.error('error', err);
-        }
+        },
+        complete: () => console.log('Subscription #2 complete!')
       });
     }, 2000);
   }
