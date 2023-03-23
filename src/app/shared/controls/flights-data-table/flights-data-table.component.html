@@ -1,0 +1,6 @@
+<app-data-table [data]="flights">
+    <div *appTableField="let field as 'id'">{{ field }}</div>
+    <div *appTableField="let field as 'from'">{{ field }}</div>
+    <div *appTableField="let field as 'to'">{{ field }}</div>
+    <div *appTableField="let field as 'date'">{{ field | date:'dd.MM.yyyy' }}</div>
+</app-data-table>

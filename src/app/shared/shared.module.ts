@@ -17,6 +17,7 @@ import { ClickWithWarningDirective } from './directives/click-with-warning.direc
 import { TooltipDirective } from './directives/tooltip.directive';
 import { TableFieldDirective } from './directives/table-field.directive';
 import { DataTableComponent } from './controls/data-table/data-table.component';
+import { FlightsDataTableComponent } from './controls/flights-data-table/flights-data-table.component';
 
 @NgModule({
   imports: [CommonModule, FormsModule],
@@ -34,7 +35,8 @@ import { DataTableComponent } from './controls/data-table/data-table.component';
     ClickWithWarningDirective,
     TooltipDirective,
     TableFieldDirective,
-    DataTableComponent
+    DataTableComponent,
+    FlightsDataTableComponent
   ],
   exports: [
     DateComponent,
@@ -52,7 +54,8 @@ import { DataTableComponent } from './controls/data-table/data-table.component';
     ClickWithWarningDirective,
     TooltipDirective,
     TableFieldDirective,
-    DataTableComponent
+    DataTableComponent,
+    FlightsDataTableComponent
   ]
 })
 export class SharedModule {}

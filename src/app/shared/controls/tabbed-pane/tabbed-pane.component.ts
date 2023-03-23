@@ -23,8 +23,10 @@ export class TabbedPaneComponent implements AfterViewInit, AfterContentInit {
   }
 
   ngAfterViewInit(): void {
-    this.tabbedPaneService.pageCount.next(this.tabs.length);
-    this.tabbedPaneService.currentPage.subscribe({
+    // this.tabbedPaneService.pageCount.next(this.tabs.length);
+    this.tabbedPaneService.updatePageCount(this.tabs.length);
+
+    this.tabbedPaneService.currentPage$.subscribe({
       next: (page) => {
         if (page === this.currentPage) {
           return;
@@ -48,7 +50,8 @@ export class TabbedPaneComponent implements AfterViewInit, AfterContentInit {
     this.tabs.forEach((tab, index) => {
       if (tab === active) {
         this.currentPage = index;
-        this.tabbedPaneService.currentPage.next(this.currentPage);
+        // this.tabbedPaneService.currentPage.next(this.currentPage);
+        this.tabbedPaneService.updateCurrentPage(this.currentPage);
       }
       tab.visible = tab === active;
     });
