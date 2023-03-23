@@ -37,7 +37,8 @@ export class FlightService {
       },
       error: (err) => {
         console.error('error', err);
-      }
+      },
+      complete: () => console.log('Subscription #1 complete!')
     });
 
     setTimeout(() => {
@@ -50,7 +51,8 @@ export class FlightService {
         },
         error: (err) => {
           console.error('error', err);
-        }
+        },
+        complete: () => console.log('Subscription #2 complete!')
       });
     }, 2000);
   }
