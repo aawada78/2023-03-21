@@ -26,7 +26,7 @@ export const APP_ROUTES: Routes = [
       preloading: {
         preload: true,
         role: 'user',
-        startDate: 25
+        startDate: 15
       }
     }
   },

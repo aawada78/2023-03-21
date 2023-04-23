@@ -1,8 +1,21 @@
 <h1>Flight Edit</h1>
 
-<p>
-  Id: {{id}}
-</p>
-<p>
-  ShowDetail: {{id}}
-</p>
+<form [formGroup]="flightEditForm">
+  <div class="form-group">
+    <label>Id</label>
+    <input class="form-control" formControlName="id">
+  </div>
+  <div class="form-group">
+    <label>From</label>
+    <input class="form-control" formControlName="from">
+  </div>
+  <div class="form-group">
+    <label>To</label>
+    <input class="form-control" formControlName="to">
+  </div>
+  <div class="form-group">
+    <label>Urgent</label>
+    <input class="form-control" formControlName="urgent">
+  </div>
+
+</form>
